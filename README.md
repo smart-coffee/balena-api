@@ -1,15 +1,15 @@
-# Services Overview
+# Simple Balena API
+Small API that uses balena-sdk to get information about registered devices.
 
-## Frontend API
-URL: [https://iot.tobias-blaufuss.de/](https://iot.tobias-blaufuss.de/)
+API: `http://localhost:<port>/balena/<application_name>/devices`
+(Application name = sandbox-test)
 
-## Balena API
-URL: [https://tobias-blaufuss.de:63642/balena/sandbox-test/devices](https://tobias-blaufuss.de:63642/balena/sandbox-test/devices)
+## Docker usage
+* Start development container: `docker-compose up webapi-dev`
+* Start production container: `docker-compose up webapi-prod`
 
-## Web API
-URL: [https://tobias-blaufuss.de:65291](https://tobias-blaufuss.de:65291)
-
-Documentation: [https://webapi-docs.tobias-blaufuss.de/](https://webapi-docs.tobias-blaufuss.de/)
-
-## Coffeedevice API
-Documentation: [https://deviceapi-docs.tobias-blaufuss.de/](https://deviceapi-docs.tobias-blaufuss.de/)
+## Local installation and usage
+* Installation: `sh scripts/init`
+* Configure your environment variables: `src/.env`
+* Start app in **development** mode: `sh scripts/start-app`
+* Start app in **production** mode: `sh scripts/start-app prod`
