@@ -21,9 +21,11 @@ services:
     env_file:
       - src/.env
     environment:
-      - APP_HOST=0.0.0.0
       # Intern port
       - APP_PORT=5000
       - FLASK_ENV=production
+    volumes:
+      - /home/tobias/.letsencrypt/config/live/test.tobias-blaufuss.de/cert.pem:/ssl/cert.pem
+      - /home/tobias/.letsencrypt/config/live/test.tobias-blaufuss.de/privkey.pem:/ssl/privkey.pem
     ports:
       - '5002:5000'
