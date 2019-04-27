@@ -1,5 +1,8 @@
 #!/bin/sh
 
+APP_PROCESSES=${APP_PROCESSES:-"4"}
+APP_THREADS=${APP_THREADS:-"2"}
+
 echo "Working directory: $WORK_DIR"
 echo "Source directory: $SRC_DIR"
 echo "App starts on host:'$APP_HOST' on port:'$APP_PORT'"
@@ -23,8 +26,8 @@ manage-script-name = true
 mount =	/api=app.py
 callable = app
 
-threads = 1
-processes = 2
+threads = $APP_THREADS
+processes = $APP_PROCESSES
 master = true
 safe-pidfile = %n.pid
 EOF
