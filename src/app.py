@@ -6,7 +6,7 @@ from flask import Flask, Blueprint
 from flask_cors import CORS
 from dotenv import load_dotenv, find_dotenv
 
-from devices import get_devices_api
+from devices import get_devices_api, get_root
 
 load_dotenv(find_dotenv())
 balena = Balena()
@@ -26,7 +26,8 @@ else:
 
 app = Flask(__name__)
 CORS(app, allow_headers="*")
-app.register_blueprint(get_devices_api, url_prefix='/balena')
+url_prefix = os.environ['URL_PREFIX']
+app.register_blueprint(get_devices_api, url_prefix=url_prefix)
 
 certificate = os.environ['CERT_FILE']
 private_key = os.environ['PRIVKEY_FILE']

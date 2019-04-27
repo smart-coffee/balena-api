@@ -1,0 +1,13 @@
+#!/bin/bash
+
+BASEDIR=$(dirname "$0")
+
+# Init environment
+source $BASEDIR/init-env src $FLASK_ENV
+
+# Create uwsgi configuration
+if [[ ! -z "$CERT_FILE" && ! -z "$PRIVKEY_FILE" ]]; then
+    envsubst < templates/uwsgi.https.ini.template | cat > $WORK_DIR/uwsgi.ini
+else
+    envsubst < templates/uwsgi.http.ini.template | cat > $WORK_DIR/uwsgi.ini
+fi

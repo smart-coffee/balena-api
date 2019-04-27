@@ -7,6 +7,8 @@ README.md
 .git/
 __pycache__/
 scripts/
+!scripts/init-env
+!scripts/init-config
 *.sock
 venv/
 *.pid
