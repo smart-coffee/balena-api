@@ -1,6 +1,6 @@
 #!/bin/bash
 
-init-config prod
+init-config $FLASK_ENV
 
 echo "Working directory: $WORK_DIR"
 echo "Source directory: $SRC_DIR"
@@ -15,9 +15,6 @@ if [[ ! -f "/ssl/privkey.pem" ]]; then
 	echo "Linking privkey.pem"
 	ln -s /ssl/privkey.pem $SRC_DIR/$PRIVKEY_FILE
 fi
-
-cat src/.env
-cat uwsgi.ini
 
 if [[ "$FLASK_ENV" = "production" ]]; then
 	echo "Production mode."
