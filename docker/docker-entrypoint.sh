@@ -7,11 +7,11 @@ echo "Source directory: $SRC_DIR"
 echo "App starts on host:'$APP_HOST' on port:'$APP_PORT'"
 echo "For ports outside the container, checkout the 'docker-compose.yml' file."
 
-if [[ ! -f "/ssl/cert.pem" ]]; then
+if [[ -f "/ssl/cert.pem" ]]; then
 	echo "Linking cert.pem"
 	ln -s /ssl/cert.pem $SRC_DIR/$CERT_FILE
 fi
-if [[ ! -f "/ssl/privkey.pem" ]]; then
+if [[ -f "/ssl/privkey.pem" ]]; then
 	echo "Linking privkey.pem"
 	ln -s /ssl/privkey.pem $SRC_DIR/$PRIVKEY_FILE
 fi
