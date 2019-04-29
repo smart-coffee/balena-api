@@ -11,7 +11,7 @@ if [[ -z "$BUILD_ENV" ]]; then
     echo "Defaults to 'docker' for now."
     BUILD_ENV="docker"
 fi
-if [[ ! "$BUILD_ENV" = "docker" || ! "$BUILD_ENV" = "local" ]]; then
+if [[ "$BUILD_ENV" -ne "docker" || "$BUILD_ENV" -ne "local" ]]; then
     echo "Invalid BUILD_ENV=$BUILD_ENV."
     echo "Set BUILD_ENV=docker if build with docker."
     echo "Set BUILD_ENV=local if build without docker."
