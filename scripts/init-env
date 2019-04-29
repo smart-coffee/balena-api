@@ -1,6 +1,8 @@
 #!/bin/sh
 
 location=$1
+
+# Optional: dev, prod
 mode=$2
 
 if [[ -z "$location" ]]; then
@@ -23,6 +25,7 @@ export APP_HOST=${APP_HOST:-"localhost"}
 export APP_PORT=${APP_PORT:-"5000"}
 export APP_PROCESSES=${APP_PROCESSES:-"2"}
 export APP_THREADS=${APP_THREADS:-"2"}
+export MOUNT_URL=${MOUNT_URL:-"/api"}
 
 if [ "$mode" = "dev" ]; then
     export FLASK_ENV="development"
@@ -34,8 +37,3 @@ else
     echo "Unknown mode: '$mode'. Use one of the following modes: dev, prod"
     exit 1
 fi
-
-# Create .env file
-echo "Generating '.env' file to '$location/.env'"
-envsubst < templates/.env.template | cat > $SRC_DIR/.env
-echo "'$location/.env' file generated. Please adjust as needed for $mode environment."

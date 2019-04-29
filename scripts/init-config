@@ -1,13 +1,40 @@
 #!/bin/bash
 
 BASEDIR=$(dirname "$0")
+TEMPLATE_DIR="templates"
+
+# Mandatory: docker, local
+if [[ -z "$BUILD_ENV" ]]; then
+    echo "WARNING: BUILD_ENV variable not set."
+    echo "Set BUILD_ENV=docker if build with docker."
+    echo "Set BUILD_ENV=local if build without docker."
+    echo "Defaults to 'docker' for now."
+    BUILD_ENV="docker"
+fi
+if [[ ! "$BUILD_ENV" = "docker" || ! "$BUILD_ENV" = "local" ]]; then
+    echo "Invalid BUILD_ENV=$BUILD_ENV."
+    echo "Set BUILD_ENV=docker if build with docker."
+    echo "Set BUILD_ENV=local if build without docker."
+    exit 1
+fi
+
+# Optional: dev, prod
+mode=$1
 
 # Init environment
-source $BASEDIR/init-env src $FLASK_ENV
+source $BASEDIR/init-env src $mode
+
+# Create .env file
+echo "Generating '.env' file to '$SRC_DIR/.env'"
+envsubst < $TEMPLATE_DIR/.env.template | cat > $SRC_DIR/.env
+echo "'$SRC_DIR/.env' file generated. Please adjust as needed for $FLASK_ENV environment."
 
 # Create uwsgi configuration
+echo "Generating 'uwsgi.ini' file to '$WORK_DIR/uwsgi.ini'"
 if [[ ! -z "$CERT_FILE" && ! -z "$PRIVKEY_FILE" ]]; then
-    envsubst < templates/uwsgi.https.ini.template | cat > $WORK_DIR/uwsgi.ini
+    echo "uWSGI HTTPS enabled. Please check your certificates."
+    envsubst < $TEMPLATE_DIR/uwsgi-$BUILD_ENV.https.ini.template | cat > $WORK_DIR/uwsgi.ini
 else
-    envsubst < templates/uwsgi.http.ini.template | cat > $WORK_DIR/uwsgi.ini
+    echo "uWSGI HTTP enabled."
+    envsubst < $TEMPLATE_DIR/uwsgi-$BUILD_ENV.http.ini.template | cat > $WORK_DIR/uwsgi.ini
 fi

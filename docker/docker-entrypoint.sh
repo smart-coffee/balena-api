@@ -1,6 +1,6 @@
 #!/bin/bash
 
-init-config $FLASK_ENV
+init-config
 
 echo "Working directory: $WORK_DIR"
 echo "Source directory: $SRC_DIR"

@@ -4,8 +4,8 @@
 
 Small API that uses balena-sdk to get information about registered devices.
 
-API: `http://localhost:<port>/balena/<application_name>/devices`
-(Application name = sandbox-test)
+API: `http://<env:APP_HOST>:<env:APP_PORT>/<env:MOUNT_URL>/<env:URL_PREFIX>/<application_name>/devices`
+(Application name = See in balena.io)
 
 ## Local installation
 
